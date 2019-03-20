@@ -5,7 +5,7 @@ group = "vip.okfood"
 version = "1.0.0"
 
 def siteUrl = 'https://github.com/Leo0618/ActivityStackManager'   // 项目的主页
-def gitUrl = 'git@github.com:Leo0618/ActivityStackManager.git'   // Git仓库的url
+def gitUrl = 'https://github.com/Leo0618/ActivityStackManager.git'   // Git仓库的url
 
 def descContent = 'activity stack manager.'
 def pkgName = "asm"
