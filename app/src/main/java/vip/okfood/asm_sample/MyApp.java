@@ -17,5 +17,6 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         ActivityStackManager.get().register(this);
+        ActivityStackManager.get().debug(BuildConfig.DEBUG);
     }
 }
