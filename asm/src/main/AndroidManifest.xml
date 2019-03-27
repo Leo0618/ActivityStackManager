@@ -1,1 +1,5 @@
-<manifest package="vip.okfood.asm" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="vip.okfood.asm">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>

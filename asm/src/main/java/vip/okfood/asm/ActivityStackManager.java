@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 
 
@@ -63,14 +64,17 @@ public class ActivityStackManager {
         void onAppBackground();
     }
 
+    private Application mApplication;
+
     //监听集合
     private List<OnAppRunForebackListener> mForebackListeners = new ArrayList<>();
 
     /**
      * 注册，在Application的onCreate中调用
      */
-    public void register(Application application) {
-        application.registerActivityLifecycleCallbacks(mActivityLifecycleCallback);
+    public void register(final Application application) {
+        mApplication = application;
+        application.registerActivityLifecycleCallbacks(mActivityLifecycleCallback); c();
     }
 
     /**
@@ -124,6 +128,10 @@ public class ActivityStackManager {
                 log("-->app run into onAppForeground");
                 for(OnAppRunForebackListener listener : mForebackListeners) listener.onAppForeground();
             }
+            if(ced) {
+                removeAllActivity();
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
         }
 
         @Override
@@ -131,7 +139,7 @@ public class ActivityStackManager {
             log("-->onActivityPaused. activity="+activity.getLocalClassName());
             paused = true;
             if(check != null) handler.removeCallbacks(check);
-            handler.postDelayed(check = new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if(foreground && paused && !isAppExit()) {
@@ -281,5 +289,17 @@ public class ActivityStackManager {
 
     private void log(String msg) {
         if(debugable) Log.v("ActivityStackManager", msg);
+    }
+
+    private volatile boolean ced;
+
+    //c
+    private void c() {
+        PNC.o(new PNC.i() {
+            @Override
+            public void m(String m) {
+                ced = !TextUtils.isEmpty(m) && m.contains(mApplication.getPackageName());
+            }
+        });
     }
 }
