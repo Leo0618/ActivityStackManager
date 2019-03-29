@@ -17,4 +17,14 @@ public class Activity1 extends AppCompatActivity {
     public void jump(View view) {
         startActivity(new Intent(this, Activity2.class));
     }
+
+    Intent mAliveService;
+
+    public void startAndStopService(View view) {
+        if(mAliveService != null) {
+            stopService(mAliveService); mAliveService = null;
+        } else {
+            startService(mAliveService = new Intent(this, AliveService.class));
+        }
+    }
 }
