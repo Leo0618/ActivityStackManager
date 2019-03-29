@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-obfuscationdictionary proguard_replace_word.txt
+-classobfuscationdictionary  proguard_replace_word.txt
