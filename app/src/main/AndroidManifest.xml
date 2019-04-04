@@ -24,6 +24,7 @@
         </activity>
         <activity android:name="vip.okfood.asm_sample.Activity2" />
         <activity android:name="vip.okfood.asm_sample.Activity3" />
+        <activity android:name="vip.okfood.asm_sample.test.WXCommentTextActivity" />
 
 
         <service android:name=".AliveService" />

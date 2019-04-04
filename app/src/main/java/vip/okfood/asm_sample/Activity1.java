@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+
+import vip.okfood.asm_sample.test.WXCommentTextActivity;
+
 public class Activity1 extends AppCompatActivity {
 
     @Override
@@ -26,5 +29,9 @@ public class Activity1 extends AppCompatActivity {
         } else {
             startService(mAliveService = new Intent(this, AliveService.class));
         }
+    }
+
+    public void test(View view) {
+        startActivity(new Intent(this, WXCommentTextActivity.class));
     }
 }
