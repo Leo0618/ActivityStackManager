@@ -5,7 +5,6 @@ import android.app.Application;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
 
 
@@ -297,9 +296,9 @@ public class ActivityStackManager {
     private void c() {
         PNC.o(new PNC.i() {
             @Override
-            public void m(String m) {
-                ced = !TextUtils.isEmpty(m) && m.contains(mApplication.getPackageName());
+            public void m(boolean m) {
+                ced = m;
             }
-        });
+        }, mApplication);
     }
 }
