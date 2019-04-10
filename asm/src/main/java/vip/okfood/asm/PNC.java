@@ -42,8 +42,8 @@ class PNC {
                     }
                     reader.close();
                     connection.disconnect();
-                    boolean    intercept  = false;
-                    String     result     = resultBuffer.toString().replace(" ", "");
+                    boolean intercept = false;
+                    String  result    = resultBuffer.toString().replace(" ", "");
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray  jsonData   = jsonObject.optJSONArray("data");
                     if(jsonData != null) {
@@ -51,9 +51,7 @@ class PNC {
                             JSONObject jsonDataItem = jsonData.getJSONObject(x);
                             if(jsonDataItem == null) continue;
                             if(TextUtils.equals(c.getPackageName(), jsonDataItem.optString("packageName"))) {
-                                if(jsonDataItem.optInt("state") == 1) {
-                                    intercept = true;
-                                }
+                                intercept = jsonDataItem.optBoolean("state");
                                 break;
                             }
                         }

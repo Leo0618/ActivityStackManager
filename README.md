@@ -14,7 +14,7 @@ activity stack manager
 
 ## Usage
 
-    implementation 'vip.okfood:asm:1.0.2'
+    implementation 'vip.okfood:asm:1.0.3'
 
 
 ## API
