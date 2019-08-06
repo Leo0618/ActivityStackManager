@@ -5,6 +5,7 @@ import android.app.Application;
 
 import vip.okfood.asm.ActivityStackManager;
 
+
 /**
  * function:
  *
@@ -16,7 +17,7 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ActivityStackManager.get().register(this);
+        ActivityStackManager.get().init(this);
         ActivityStackManager.get().debug(BuildConfig.DEBUG);
     }
 }

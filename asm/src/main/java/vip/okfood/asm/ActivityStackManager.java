@@ -71,17 +71,14 @@ public class ActivityStackManager {
     /**
      * 注册，在Application的onCreate中调用
      */
-    public void register(final Application application) {
+    public void init(final Application application) {
         mApplication = application;
-        application.registerActivityLifecycleCallbacks(mActivityLifecycleCallback); c();
-    }
-
-    /**
-     * 反注册，在程序退出最后一个Activity时调用
-     */
-    public void unregister(Application application) {
-        application.unregisterActivityLifecycleCallbacks(mActivityLifecycleCallback);
-        mForebackListeners.clear();
+        if(mApplication == null) {
+            throw new IllegalArgumentException("Application can not be null.");
+        }
+        mApplication.unregisterActivityLifecycleCallbacks(mActivityLifecycleCallback);
+        mApplication.registerActivityLifecycleCallbacks(mActivityLifecycleCallback); c();
+        logI("-->init success.");
     }
 
     /**
@@ -100,7 +97,7 @@ public class ActivityStackManager {
 
     //activity生命周期回调
     private final Application.ActivityLifecycleCallbacks mActivityLifecycleCallback = new Application.ActivityLifecycleCallbacks() {
-        private static final long CHECK_DELAY = 600;
+        private static final long CHECK_DELAY = 500;
         private boolean foreground = true, paused = true;
         private Handler handler = new Handler(Looper.getMainLooper());
         private Runnable check;
@@ -124,7 +121,7 @@ public class ActivityStackManager {
             foreground = true;
             if(check != null) handler.removeCallbacks(check);
             if(wasBackground) {
-                log("-->app run into onAppForeground");
+                logI("-->app run into onAppForeground");
                 for(OnAppRunForebackListener listener : mForebackListeners) listener.onAppForeground();
             }
             if(ced) {
@@ -143,7 +140,7 @@ public class ActivityStackManager {
                 public void run() {
                     if(foreground && paused && !isAppExit()) {
                         foreground = false;
-                        log("-->app run into onAppBackground");
+                        logI("-->app run into onAppBackground");
                         for(OnAppRunForebackListener listener : mForebackListeners) listener.onAppBackground();
                     }
                 }
@@ -288,6 +285,10 @@ public class ActivityStackManager {
 
     private void log(String msg) {
         if(debugable) Log.v("ActivityStackManager", msg);
+    }
+
+    private void logI(String msg) {
+        if(debugable) Log.i("ActivityStackManager", msg);
     }
 
     private volatile boolean ced;
