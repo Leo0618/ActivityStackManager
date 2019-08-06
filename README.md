@@ -27,11 +27,11 @@ activity stack manager
 	get()
 	获取单例实例
 	
-	register(android.app.Application application)
-	注册，在程序入口处调用，Application的onCreate中
+	init(android.app.Application application)
+	初始化，在程序入口处调用，Application的onCreate中
 	
 	debug(boolean debug)
-	是否开启日志打印
+	是否开启日志打印，默认关闭
 
 	addAppRunForebackListener(ActivityStackManager.OnAppRunForebackListener listener)
 	添加APP前后台运行监听
